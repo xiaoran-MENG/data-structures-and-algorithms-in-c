@@ -1,0 +1,15 @@
+void free_list(Node *head)
+{
+    Node* node = NULL;
+    while (head)
+    {
+        node = head;
+        head = head->next;
+        free(node);
+    }
+}
+
+free(node) 只释放 node 指向的那块堆内存（即之前用 malloc 分配的 Node 结构体
+node 本身是一个局部变量，存放在栈上，并不是通过 malloc 分配的
+所以不用（也不能）用 free 来释放
+函数返回时，栈上的所有局部变量都会自动销毁
